@@ -1,0 +1,5 @@
+name: Global Variables
+type: module
+description: Provides unlimited global key-value variables with token support.
+core_version_requirement: ^10 || ^11
+package: Custom

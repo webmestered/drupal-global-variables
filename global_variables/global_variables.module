@@ -1,0 +1,45 @@
+<?php
+
+use Drupal\Core\Render\BubbleableMetadata;
+
+/**
+ * Implements hook_token_info().
+ */
+function global_variables_token_info() {
+
+  $type['global'] = [
+    'name' => t('Global variables'),
+    'description' => t('Custom global key-value variables.'),
+  ];
+
+  return ['types' => $type];
+}
+
+/**
+ * Implements hook_tokens().
+ */
+function global_variables_tokens($type, $tokens, array $data, array $options, BubbleableMetadata $bubbleable_metadata) {
+
+  $replacements = [];
+
+  if ($type === 'global') {
+
+    $config = \Drupal::config('global_variables.settings');
+    $variables = $config->get('variables') ?? [];
+
+    foreach ($tokens as $name => $original) {
+      if (isset($variables[$name])) {
+
+        if (is_array($variables[$name])) {
+          $replacements[$original] = $variables[$name]['value'];
+        }
+        else {
+          $replacements[$original] = $variables[$name];
+        }
+
+      }
+    }
+  }
+
+  return $replacements;
+}

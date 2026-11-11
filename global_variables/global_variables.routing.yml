@@ -1,0 +1,7 @@
+global_variables.form:
+  path: '/admin/config/global-variables'
+  defaults:
+    _form: '\Drupal\global_variables\Form\GlobalVariablesForm'
+    _title: 'Global Variables'
+  requirements:
+    _permission: 'administer global variables'
